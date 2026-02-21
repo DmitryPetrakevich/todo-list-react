@@ -1,0 +1,11 @@
+.btn {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: none;
+    border: 1px solid teal;
+    transition: all, 0.2s ease;
+}
+
+.btn:hover {
+    background-color: rgb(228, 228, 228);
+}

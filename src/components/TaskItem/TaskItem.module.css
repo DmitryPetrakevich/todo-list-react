@@ -1,0 +1,11 @@
+.taskItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid teal;
+}
+
