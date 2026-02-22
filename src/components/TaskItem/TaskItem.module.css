@@ -3,9 +3,34 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 500px;
+    width: 100%;
+    max-width: 1000px;
     padding: 10px 15px;
     border-radius: 5px;
     border: 1px solid teal;
+    background-color: rgb(231, 230, 230);
+    transition: all 0.3s ease;
 }
 
+.taskItem:hover {
+    background-color: rgb(208, 208, 208);
+}
+
+.task-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+.done {
+    text-decoration: line-through;  
+    color: #888;  
+    opacity: 0.8;
+}
