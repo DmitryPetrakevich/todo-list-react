@@ -8,12 +8,13 @@
     padding: 10px 15px;
     border-radius: 5px;
     border: 1px solid teal;
+    font-family: 'Inter', sans-serif;
     background-color: rgb(231, 230, 230);
     transition: all 0.3s ease;
 }
 
 .taskItem:hover {
-    background-color: rgb(208, 208, 208);
+    background-color: rgb(215, 213, 213);
 }
 
 .task-left {
