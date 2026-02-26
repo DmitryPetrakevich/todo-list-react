@@ -1,0 +1,7 @@
+.select {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: none;
+    border: 1px solid teal;
+    transition: all, 0.2s ease;
+}

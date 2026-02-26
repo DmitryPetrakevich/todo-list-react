@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./TaskList.module.css";
 import TaskItem from "../TaskItem/TaskItem";
 
-const TaskList = ({ tasks, title, onDelete, onToggle, onDeadlineChange  }) => {
+const TaskList = ({ tasks, title, onDelete, onToggle, onDeadlineChange, onPriorityChange  }) => {
   return (
     <div>
       <h1 className={styles.title} style={{ margin: "20px 0" }}>
@@ -23,15 +23,14 @@ const TaskList = ({ tasks, title, onDelete, onToggle, onDeadlineChange  }) => {
               <TaskItem
                 body={task.body}
                 done={task.done}
+                taskId={task.id}
+                priority={task.priority}
                 deadline={task.deadline}
                 onDelete={() => onDelete(task.id)}
                 onToggle={() => onToggle(task.id)}
-                onDeadlineChange={(newDeadline) => {
-                  // Создаём обновлённую задачу
-                  const updatedTask = { ...task, deadline: newDeadline };
-                  // Здесь нужна функция в App для обновления
-                  onDeadlineChange(task.id, newDeadline);
-                }}
+                onDeadlineChange={onDeadlineChange}
+                onPriorityChange={onPriorityChange}
+                  
               />
             </motion.li>
           ))}

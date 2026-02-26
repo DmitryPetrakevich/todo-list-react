@@ -13,10 +13,6 @@
   transition: all 0.3s ease;
 }
 
-.taskItem:hover {
-  background-color: rgb(215, 213, 213);
-}
-
 .task-left {
   display: flex;
   flex-direction: row;
@@ -28,6 +24,19 @@
 .checkbox {
   height: 20px;
   width: 20px;
+  cursor: pointer;
+}
+
+.checkbox-low {
+  accent-color: teal;
+}
+
+.checkbox-medium {
+  accent-color: yellow;
+}
+
+.checkbox-high {
+  accent-color: red;
 }
 
 .done {
@@ -83,3 +92,61 @@
   margin-top: 8px;
 }
 
+.priority-wrapper {
+  position: absolute;
+  top: 50%; 
+  left: 0;
+  z-index: 1000;
+  background-color: rgb(229, 227, 227);
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.priority-choice  {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.high {
+  border: 3px solid #e57f7f;
+}
+
+.medium {
+  border: 3px solid #e4c381;
+}
+
+.low {
+  border: 3px solid #8aeeb2;
+}
+
+.taskItem:hover {
+  background-color: rgb(215, 213, 213);
+}
+
+.priority-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.priority-high {
+  background-color: #ff4444;
+  box-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+}
+
+.priority-medium {
+  background-color: #ffbb33;
+  box-shadow: 0 0 5px rgba(255, 187, 51, 0.5);
+}
+
+.priority-low {
+  background-color: #00C851;
+  box-shadow: 0 0 5px rgba(0, 200, 81, 0.5);
+}
