@@ -1,7 +1,7 @@
 .creator {
     position: fixed;
-    background-color: rgb(173, 180, 184);
+    background-color: rgb(146, 149, 151);
     padding: 10px;
     bottom: 0;
-    opacity: 0.8;
+    border-radius: 5px;
 }

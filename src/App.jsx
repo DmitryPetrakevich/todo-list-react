@@ -7,33 +7,29 @@ import Button from "./components/ui/Button/Button";
 import SideBar from "./components/SideBar/SideBar";
 import TaskCreator from "./components/TaskCreator/TaskCreator";
 import MySelect from "./components/Sorter/MySelect";
-import MyInput from "./components/ui/Input/MyInput";
 
 import { 
   addTask, 
   setSort,
   selectFilteredTasks, 
-  selectSelectedSort
+  selectSelectedSort,
+  selectShowModal,
+  selectTaskBody,
+  toggleModal,
+  
 } from "./store/slices/todoSlice";
+import CreateTaskModal from "./components/CreateTaskModal/CreateTaskModal";
 
 function App() {
   const dispatch = useDispatch();
 
   const tasks = useSelector(selectFilteredTasks);
   const selectedSort = useSelector(selectSelectedSort);
-
-  const [taskBody, setTaskBody] = useState('')
-
-  const handleAddTask = () => {
-    if(taskBody.trim() === "") return;
-
-    dispatch(addTask({body: taskBody}))
-    setTaskBody("")
-  }
+  const showModal = useSelector(selectShowModal);
+  const taskBody = useSelector(selectTaskBody)
 
   const handleSortChange = (e) => {
     dispatch(setSort(e.target.value))
-
   }
 
   return (
@@ -41,15 +37,6 @@ function App() {
       <SideBar />
 
       <div className="main">
-        <MyInput
-          value={taskBody}
-          onChange={(e) => setTaskBody(e.target.value)}
-          placeholder="Название задачи..."
-          style={{marginRight: "10px" }}
-        />
-
-        <Button onClick={handleAddTask}>Добавить задачу</Button>
-
         <MySelect 
         value={selectedSort}
         onChange={handleSortChange}
@@ -67,6 +54,8 @@ function App() {
         />
 
         <TaskCreator />
+        {showModal ? <CreateTaskModal/> : null}
+        
       </div>
     </div>
   );

@@ -22,6 +22,8 @@ const initialState = {
   ],
   selectedSort: "",
   filterStatus: "all",
+  showModal: false,
+  taskBody: "",
 };
 
 const todoSlice = createSlice({
@@ -53,6 +55,10 @@ const todoSlice = createSlice({
       }
     },
 
+    showModal: (state, action) => {
+      state.showModal = !state.showModal
+    },
+
     updatePriority: (state, action) => {
       const task = state.tasks.find((task) => task.id === action.payload.taskId);
       if (task) {
@@ -67,6 +73,10 @@ const todoSlice = createSlice({
       if (task) {
         task.deadline = action.payload.newDeadline;
       }
+    },
+
+    updateTaskBody: (state, action) => {
+      state.taskBody = action.payload;
     },
 
     setSort(state, action) {
@@ -86,6 +96,8 @@ const todoSlice = createSlice({
 export const selectTasks = (state) => state.todo.tasks;
 export const selectSelectedSort = (state) => state.todo.selectedSort;
 export const selectFilterStatus = (state) => state.todo.filterStatus;
+export const selectShowModal = (state) => state.todo.showModal;
+export const selectTaskBody = (state) => state.todo.taskBody;
 
 export const selectSortedTasks = (state) => {
   const { tasks, selectedSort } = state.todo;
@@ -122,6 +134,7 @@ export const selectFilteredTasks = (state) => {
 };
 
 export const { 
+  showModal: toggleModal,
   addTask, 
   deleteTask, 
   toggleTask, 
@@ -129,6 +142,7 @@ export const {
   updateDeadline, 
   setSort,
   clearSort,
+  updateTaskBody,
   setFilterStatus 
 } = todoSlice.actions;
 
