@@ -24,6 +24,7 @@ const initialState = {
   filterStatus: "all",
   showModal: false,
   taskBody: "",
+  activeTask: "",
 };
 
 const todoSlice = createSlice({
@@ -79,6 +80,10 @@ const todoSlice = createSlice({
       state.taskBody = action.payload;
     },
 
+    updateActiveColor: (state, action) => {
+      state.activeTask = action.payload
+    },
+
     setSort(state, action) {
       state.selectedSort = action.payload;
     },
@@ -98,6 +103,7 @@ export const selectSelectedSort = (state) => state.todo.selectedSort;
 export const selectFilterStatus = (state) => state.todo.filterStatus;
 export const selectShowModal = (state) => state.todo.showModal;
 export const selectTaskBody = (state) => state.todo.taskBody;
+export const selectActiveColor = (state) => state.todo.activeTask;
 
 export const selectSortedTasks = (state) => {
   const { tasks, selectedSort } = state.todo;
@@ -143,6 +149,7 @@ export const {
   setSort,
   clearSort,
   updateTaskBody,
+  updateActiveColor,
   setFilterStatus 
 } = todoSlice.actions;
 

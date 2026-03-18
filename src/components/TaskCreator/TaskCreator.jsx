@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../ui/Button/Button";
-import styles from "./TaskCreator.module.css"
+import sl from "./TaskCreator.module.css"
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -17,10 +17,13 @@ const TaskCreator = () => {
   }
 
   return (
-    <div className={styles.creator}>
-        <Button onClick={handleToggleModal}>+ Новая задача</Button>
+    <div className={sl.creator}>
+        <Button 
+        onClick={handleToggleModal}
+        >
+          + Новая задача
+        </Button>
     </div>
-
   );
 };
 

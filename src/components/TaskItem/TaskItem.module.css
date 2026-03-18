@@ -9,8 +9,12 @@
   border-radius: 5px;
   border: 1px solid teal;
   font-family: "Inter", sans-serif;
-  background-color: rgb(231, 230, 230);
+  background-color: rgb(218, 216, 216);
   transition: all 0.3s ease;
+}
+
+.active {
+  background-color: rgb(244, 243, 243);
 }
 
 .task-left {
@@ -125,7 +129,7 @@
 }
 
 .taskItem:hover {
-  background-color: rgb(215, 213, 213);
+  background-color: rgb(244, 243, 243);
 }
 
 .priority-indicator {

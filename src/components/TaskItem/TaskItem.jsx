@@ -1,6 +1,6 @@
 import styles from "./TaskItem.module.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
 
 import Button from "../ui/Button/Button";
 
@@ -12,11 +12,15 @@ import {
   deleteTask, 
   toggleTask, 
   updateDeadline, 
-  updatePriority 
+  updatePriority,
+  updateActiveColor,
+  selectActiveColor,
 } from "../../store/slices/todoSlice";
 
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch()
+
+  const activeTaskId = useSelector(selectActiveColor)
 
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isPriorityPickerOpen, setIsPriorityPickerOpen] = useState(false)
@@ -43,14 +47,13 @@ const TaskItem = ({ task }) => {
     setIsDatePickerOpen(false);
   };
 
-  // const handlePriorityChange = (selectedPriority) => {
-  //   onPriorityChange(taskId, selectedPriority)
-  //   setIsPriorityPickerOpen(false);
-  // }
-
   const handlePriorityChange = (selectedPriority) => {
     dispatch(updatePriority({taskId: task.id, newPriority: selectedPriority}))
     setIsPriorityPickerOpen(false);
+  }
+
+  const handleActiveTask = () => {
+    dispatch(updateActiveColor(task.id))
   }
 
   const handleDelete = () => {
@@ -66,9 +69,12 @@ const TaskItem = ({ task }) => {
       styles.taskItem,
       task.priority === "high" && styles.high,
       task.priority === 'medium' && styles.medium,
-      task.priority === 'low' && styles.low
-    ].join(" ")
-    }>
+      task.priority === 'low' && styles.low,
+      activeTaskId === task.id && styles.active
+    ].filter(Boolean).join(" ")
+    }
+    onClick={() => handleActiveTask()}
+    >
       <div className={styles["task-left"]}>
         <input
           className={[styles['checkbox'], styles[`checkbox-${task.priority}`]].join(" ")}
@@ -82,7 +88,10 @@ const TaskItem = ({ task }) => {
 
           <button
             className={styles.deadlineButton}
-            onClick={() => setIsDatePickerOpen(true)}
+            onClick={(e) => {
+              e.stopPropagation()
+              setIsDatePickerOpen(true)}
+            }
           >
             {formatDate(task.deadline)}
           </button>
