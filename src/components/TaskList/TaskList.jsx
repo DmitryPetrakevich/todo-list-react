@@ -21,16 +21,7 @@ const TaskList = ({ tasks, title, onDelete, onToggle, onDeadlineChange, onPriori
               style={{ listStyle: "none", padding: 0, margin: 0 }}
             >
               <TaskItem
-                body={task.body}
-                done={task.done}
-                taskId={task.id}
-                priority={task.priority}
-                deadline={task.deadline}
-                onDelete={() => onDelete(task.id)}
-                onToggle={() => onToggle(task.id)}
-                onDeadlineChange={onDeadlineChange}
-                onPriorityChange={onPriorityChange}
-                  
+              task={task}
               />
             </motion.li>
           ))}

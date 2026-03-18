@@ -1,28 +1,27 @@
 import styles from "./TaskItem.module.css";
-import Button from "../ui/Button/Button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import Button from "../ui/Button/Button";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ru } from "date-fns/locale";
-import { style } from "framer-motion/client";
 
-const TaskItem = ({
-  taskId, 
-  body, 
-  done,
-  deadline,
-  priority,
-  onDelete,
-  onToggle,
-  onDeadlineChange,
-  onPriorityChange,
-}) => {
+import { 
+  deleteTask, 
+  toggleTask, 
+  updateDeadline, 
+  updatePriority 
+} from "../../store/slices/todoSlice";
+
+const TaskItem = ({ task }) => {
+  const dispatch = useDispatch()
 
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isPriorityPickerOpen, setIsPriorityPickerOpen] = useState(false)
   
-  const deadlineDate = deadline ? new Date(deadline) : new Date();
+  const deadlineDate = task.deadline ? new Date(task.deadline) : new Date();
 
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
@@ -39,40 +38,53 @@ const TaskItem = ({
     const day = String(newDate.getDate()).padStart(2, "0");
     const formattedDate = `${year}-${month}-${day}`;
 
-    onDeadlineChange(taskId, formattedDate);
+    dispatch(updateDeadline({taskId: task.id, newDeadline: formattedDate}))
 
     setIsDatePickerOpen(false);
   };
 
+  // const handlePriorityChange = (selectedPriority) => {
+  //   onPriorityChange(taskId, selectedPriority)
+  //   setIsPriorityPickerOpen(false);
+  // }
+
   const handlePriorityChange = (selectedPriority) => {
-    onPriorityChange(taskId, selectedPriority)
+    dispatch(updatePriority({taskId: task.id, newPriority: selectedPriority}))
     setIsPriorityPickerOpen(false);
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteTask(task.id))
+  }
+
+  const handleToggle = () => {
+    dispatch(toggleTask(task.id))
   }
 
   return (
     <div className={[
       styles.taskItem,
-      priority === "high" && styles.high,
-      priority === 'medium' && styles.medium,
-      priority === 'low' && styles.low
+      task.priority === "high" && styles.high,
+      task.priority === 'medium' && styles.medium,
+      task.priority === 'low' && styles.low
     ].join(" ")
     }>
       <div className={styles["task-left"]}>
         <input
-          className={[styles['checkbox'], styles[`checkbox-${priority}`]].join(" ")}
+          className={[styles['checkbox'], styles[`checkbox-${task.priority}`]].join(" ")}
           type="checkbox"
-          checked={done}
-          onChange={onToggle}
+          checked={task.done}
+          onChange={handleToggle}
         />
 
         <div className={styles.taskContent}>
-          <span className={done ? styles.done : ""}>{body}</span>
+          <span className={task.done ? styles.done : ""}>{task.body}</span>
 
           <button
             className={styles.deadlineButton}
             onClick={() => setIsDatePickerOpen(true)}
           >
-            {formatDate(deadline)}
+            {formatDate(task.deadline)}
           </button>
 
           {isDatePickerOpen && (
@@ -92,7 +104,7 @@ const TaskItem = ({
 
       <div style={{display: 'flex', alignItems: 'center', gap: '10px', position: 'relative'}}>
         <div 
-        className={[styles['priority-indicator'], styles[`priority-${priority}`]].join(" ")} 
+        className={[styles['priority-indicator'], styles[`priority-${task.priority}`]].join(" ")} 
         onClick={() => setIsPriorityPickerOpen(true)}
         />
 
@@ -115,7 +127,7 @@ const TaskItem = ({
           </div>
         )}
 
-        <Button onClick={onDelete}>Удалить</Button>
+        <Button onClick={handleDelete}>Удалить</Button>
       </div>
     </div>
   );
